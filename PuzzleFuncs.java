@@ -157,4 +157,100 @@ public class PuzzleFuncs {
 		
 		return res;
 	}
+	private static String operationsGameOld(ArrayList<Integer> nums, int res) {
+		ArrayList<Integer> ops = new ArrayList<Integer>();
+		int realPossibilites = (int) Math.pow(4, nums.size()-1);
+		int possibilities = (int) Math.pow(10, nums.size()-1);
+		for (int i = 0; i < possibilities; i++) {
+			String s = Integer.toString(i);
+			boolean validString = true;
+			for (int j = 0; j < s.length(); j++) {
+				char cx = s.charAt(j);
+				if (charToInt(cx) > 3)
+					validString = false;
+			}
+			if (validString)
+				ops.add(i);
+		}
+		//System.out.println("possible solutions " + realPossibilites + " generated: " + ops.size());
+		ArrayList<String> opsS = new ArrayList<String>();
+		for (int i = 0; i < ops.size(); i++) {
+			String s = ops.get(i).toString();
+			while (s.length() != nums.size()-1)
+				s = "0" + s;
+			s = s.replace('0', '+');
+			s = s.replace('1', '-');
+			s = s.replace('2', '*');
+			s = s.replace('3', '/');
+			opsS.add(s);
+		}
+		
+		ArrayList<String> opsS2 = new ArrayList<String>();
+		for (int i = 0; i < opsS.size(); i++) {
+			String r = "";
+			for (int j = 0; j < opsS.get(0).length(); j++) {
+				r += nums.get(j).toString();
+				r += opsS.get(i).charAt(j);
+			}
+			int lastNum = nums.get(nums.size()-1);
+			String lastNumS = Integer.toString(lastNum);
+			r += lastNumS;
+			opsS2.add(r);
+		}
+		ScriptEngineManager manager = new ScriptEngineManager();
+		ScriptEngine engine = manager.getEngineByName("js");
+		for (int i = 0; i < opsS2.size(); i++) {
+			String s = opsS2.get(i);
+			
+			
+			//ScriptEngineManager manager = new ScriptEngineManager();
+			//ScriptEngine engine = manager.getEngineByName("js");
+			try {
+				Object result = engine.eval(s);
+				String resMaybe = "" + result;
+				try {
+				int resM = Integer.parseInt(resMaybe);
+				if (resM == res)
+					{
+						//System.out.println(s + " = " + resM);
+						return s;
+					}
+				}
+				catch (NumberFormatException ex) {
+					
+				}
+			} catch (ScriptException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+		}
+		
+		return "none";
+	}
+	private static int charToInt(char c ) {
+		if (c == '0')
+			return 0;
+		if (c == '1')
+			return 1;
+		if (c == '2')
+			return 2;
+		if (c == '3')
+			return 3;
+		if (c == '4')
+			return 4;
+		if (c == '5')
+			return 5;
+		if (c == '6')
+			return 6;
+		if (c == '7')
+			return 7;
+		if (c == '8')
+			return 8;
+		if (c == '9')
+			return 9;
+		
+		return -1;
+	}
 }
