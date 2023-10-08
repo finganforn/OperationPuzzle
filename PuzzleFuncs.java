@@ -60,12 +60,12 @@ public class PuzzleFuncs {
 				}
 				else if (op == 2) {//*
 					if (addSubDone) {
-						res += "+" + (int)numsAvailable.get(numIndex);
-						generatedRes += numsAvailable.get(numIndex);
+						res += "*" + (int)numsAvailable.get(numIndex);
+						generatedRes *= numsAvailable.get(numIndex);
 					}
 					else 
 					{
-						res += "*" + (int)numsAvailable.get(numIndex);
+						res += "+" + (int)numsAvailable.get(numIndex);
 						generatedRes *= numsAvailable.get(numIndex);
 					}
 					

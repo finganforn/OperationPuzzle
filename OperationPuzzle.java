@@ -98,7 +98,7 @@ public class OperationPuzzle {
 				int probSize = generatedProb.size();
 				int probRes = generatedProb.get(probSize-1);
 				generatedProb.remove(probSize-1);
-				String feedback = "numbers: " + generatedProb + " wanted result: " + probRes;
+				String feedback = "numbers: " + generatedProb + " wanted: " + probRes;
 				String r = PuzzleFuncs.operationsGame(generatedProb, probRes);
 				feedback += ":  " + r;
 				
