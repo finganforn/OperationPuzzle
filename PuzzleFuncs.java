@@ -17,6 +17,7 @@ public class PuzzleFuncs {
 		int operationsDone = 0;
 		int fastestSolution = 10000;
 		String fastestRes = "";
+		
 		double generatedRes = 0;
 		
 		for (int i = 0; i < 10000; i++) {
@@ -33,6 +34,10 @@ public class PuzzleFuncs {
 			int firstNumIndex = rand.nextInt(numsAvailable.size());
 			generatedRes = numsAvailable.get(firstNumIndex);
 			res += (int)generatedRes;
+			
+			if (generatedRes == wantedRes)
+				return res;
+			
 			numsAvailable.remove(firstNumIndex);
 			
 			
@@ -60,12 +65,12 @@ public class PuzzleFuncs {
 				}
 				else if (op == 2) {//*
 					if (addSubDone) {
-						res += "*" + (int)numsAvailable.get(numIndex);
-						generatedRes *= numsAvailable.get(numIndex);
+						res += "+" + (int)numsAvailable.get(numIndex);
+						generatedRes += numsAvailable.get(numIndex);
 					}
 					else 
 					{
-						res += "+" + (int)numsAvailable.get(numIndex);
+						res += "*" + (int)numsAvailable.get(numIndex);
 						generatedRes *= numsAvailable.get(numIndex);
 					}
 					
@@ -85,7 +90,9 @@ public class PuzzleFuncs {
 				numsAvailable.remove(numIndex);
 				if (generatedRes == wantedRes)
 				{
-					return "TRUE SOLUTION: " + res;
+					//if (operationsDone < fastestSolution) {
+						return "TRUE SOLUTION: " + res;
+					//}
 				}
 				else {
 					double thisDiff = wantedRes - generatedRes;
@@ -98,6 +105,8 @@ public class PuzzleFuncs {
 				}
 			}
 		}
+		//if (fastestRes.length() > 0)
+		//	return "TRUE SOLUTION: "+ fastestRes;
 		res = "closest solution: " + closestString;
 		return res;
 	}

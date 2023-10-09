@@ -63,7 +63,7 @@ public class OperationPuzzle {
 				String res = resultField.getText();
 				int wantedRes = 0;
 				ArrayList<Integer> nums = new ArrayList<Integer>();
-				var probs = probS.split(" ");
+				String[] probs = probS.split(" ");
 				for (int i = 0; i < probS.length(); i++) {
 					try {
 						int in = Integer.parseInt(probs[i]);
