@@ -15,18 +15,9 @@ public class OperationPuzzle {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		/*System.out.println("hello");
-		for (int hej = 0; hej < 2; hej++) {
-			ArrayList<Integer> generatedProb = PuzzleFuncs.generateProb();
-			while (generatedProb == null)
-				generatedProb = PuzzleFuncs.generateProb();
-			int probSize = generatedProb.size();
-			int probRes = generatedProb.get(probSize-1);
-			generatedProb.remove(probSize-1);
-			System.out.println("numbers: " + generatedProb + " wanted result: " + probRes);
-			String r = PuzzleFuncs.operationsGame(generatedProb, probRes);
-			System.out.println("result: " + r);
-		}*/
+		//for (int i = 0; i < 100; i++) 
+		//	System.out.println(PuzzleFuncs.weighRandom(5));
+		
 		
 		
 		JFrame frame = new JFrame("OperationPuzzle");
@@ -41,13 +32,15 @@ public class OperationPuzzle {
 		JTextField numbersField = new JTextField("30 20 10");
 		JTextField resultField = new JTextField("100");
 		JButton thisProb = new JButton("solve this prob");
-		JButton randomProbs = new JButton("generate probs");
+		JButton solvableProb = new JButton("solvable problem");
+		JButton randomProb = new JButton("fully random problem");
 		topPanel.add(text1);
 		topPanel.add(text2);
 		midPanel.add(numbersField);
 		midPanel.add(resultField);
 		bottomPanel.add(thisProb);
-		bottomPanel.add(randomProbs);
+		bottomPanel.add(solvableProb);
+		bottomPanel.add(randomProb);
 		
 		frame.getContentPane().add(BorderLayout.NORTH, topPanel);
         frame.getContentPane().add(BorderLayout.CENTER, midPanel);        
@@ -86,7 +79,7 @@ public class OperationPuzzle {
 			}
         	
         });
-        randomProbs.addActionListener(new ActionListener() {
+        solvableProb.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -95,6 +88,26 @@ public class OperationPuzzle {
 				ArrayList<Integer> generatedProb = PuzzleFuncs.generateProb();
 				while (generatedProb == null)
 					generatedProb = PuzzleFuncs.generateProb();
+				int probSize = generatedProb.size();
+				int probRes = generatedProb.get(probSize-1);
+				generatedProb.remove(probSize-1);
+				String feedback = "numbers: " + generatedProb + " wanted: " + probRes;
+				String r = PuzzleFuncs.operationsGame(generatedProb, probRes);
+				feedback += ":  " + r;
+				
+				JOptionPane.showMessageDialog(null, feedback);	
+			}
+        	
+        });
+        randomProb.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+				ArrayList<Integer> generatedProb = PuzzleFuncs.generateRandomProb();
+				while (generatedProb == null)
+					generatedProb = PuzzleFuncs.generateRandomProb();
 				int probSize = generatedProb.size();
 				int probRes = generatedProb.get(probSize-1);
 				generatedProb.remove(probSize-1);

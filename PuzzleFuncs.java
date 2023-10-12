@@ -20,7 +20,7 @@ public class PuzzleFuncs {
 		
 		double generatedRes = 0;
 		
-		for (int i = 0; i < 10000; i++) {
+		for (int i = 0; i < 20000; i++) {
 			
 			operationsDone = 0;
 			
@@ -90,9 +90,14 @@ public class PuzzleFuncs {
 				numsAvailable.remove(numIndex);
 				if (generatedRes == wantedRes)
 				{
-					//if (operationsDone < fastestSolution) {
-						return "TRUE SOLUTION: " + res;
-					//}
+					if (operationsDone < fastestSolution) {
+						
+						if (fastestRes.length() > 0)
+							System.out.println(nums + ": \t" + res + " is shorter than " + fastestRes + " to reach "+  wantedRes);
+						
+						fastestSolution = operationsDone;
+						fastestRes = res;
+					}
 				}
 				else {
 					double thisDiff = wantedRes - generatedRes;
@@ -105,8 +110,8 @@ public class PuzzleFuncs {
 				}
 			}
 		}
-		//if (fastestRes.length() > 0)
-		//	return "TRUE SOLUTION: "+ fastestRes;
+		if (fastestRes.length() > 0)
+			return "TRUE SOLUTION: "+ fastestRes;
 		res = "closest solution: " + closestString;
 		return res;
 	}
@@ -166,6 +171,39 @@ public class PuzzleFuncs {
 		
 		return res;
 	}
+	public static ArrayList<Integer> generateRandomProb() {
+		ArrayList<Integer> res = new ArrayList<Integer>();
+		Random rnd = new Random();
+		int amount = rnd.nextInt();
+		while (amount < 4 || amount > 8)
+			amount = rnd.nextInt(8);
+		for (int i = 0; i < amount-1; i++) {
+			//int r2 = rnd.nextInt(50);
+			//while (r2 == 0)
+			//	r2 = rnd.nextInt(50);
+			
+			int r2 = weighRandom(5);
+			res.add(r2);
+		}
+		res.add(rnd.nextInt(200));
+		
+		
+		return res;
+	}
+	
+	public static int weighRandom(int a) {
+		Random rnd = new Random();
+		int res = 100000;
+		for (int i = 0; i < a; i++)
+		{
+			int r = rnd.nextInt(100);
+			if (r > 0 && r < res)
+				res = r;
+		}
+		
+		return res;
+	}
+	
 	private static String operationsGameOld(ArrayList<Integer> nums, int res) {
 		ArrayList<Integer> ops = new ArrayList<Integer>();
 		int realPossibilites = (int) Math.pow(4, nums.size()-1);
